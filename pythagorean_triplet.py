@@ -1,3 +1,6 @@
+# Interesting! Using Euclid's formula
+# https://stackoverflow.com/questions/2817848/find-pythagorean-triplet-for-which-a-b-c-1000
+
 # set of 3 natural numbers where (a < b < c)
 # a^2 + b^2 = c^2
 #
