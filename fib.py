@@ -1,6 +1,6 @@
 import functools
 
-@functools.lru_cache
+@functools.lru_cache()
 def fib_recursive(nth):
     if nth < 2:
         return nth
