@@ -84,8 +84,35 @@ class LinkedList:
     def print_list(self):
         tmp = self.head
         while tmp:
-            print(tmp.val)
+            print(tmp.val, end='->')
             tmp = tmp.next
+
+
+# only works on sorted lists
+def recursive_merge(list1, list2):
+    # Create a temp node
+    temp = None
+
+    # Base Cases: list1 or list2 are empty
+    if not list1:
+        return list2
+
+    if not list2:
+        return list1
+
+    # compare data and recurse
+    if list1.val <= list2.val:
+        # assign temp to smaller value
+        temp = list1
+        # and recurse
+        temp.next = recursive_merge(list1.next, list2)
+    else:
+        # assign temp to smaller value
+        temp = list2
+        temp.next = recursive_merge(list1, list2.next)
+
+    # return full list
+    return temp
 
 
 my_list = LinkedList()
@@ -98,7 +125,44 @@ my_list.append(node2)
 my_list.append(node3)
 
 my_list.print_list()
+print('\n')
 
 my_list.swap(1, 2)
 
 my_list.print_list()
+print('\n')
+
+# Sort my_list
+my_list.swap(1, 2)
+
+my_list.print_list()
+print('\n')
+
+# Merge!
+
+my_list2 = LinkedList()
+node4 = ListNode(4)
+node5 = ListNode(5)
+node2_2 = ListNode(2)
+node3_3 = ListNode(3)
+
+my_list2.append(node2_2)
+my_list2.append(node3_3)
+my_list2.append(node4)
+my_list2.append(node5)
+
+my_list2.print_list()
+print('\n')
+
+# create new merged_lists as a LinkedList()
+merged_lists = LinkedList()
+
+# Must supply list.head (LinkedList obj has no 'val' attribute)
+# that is, we're merging the nodes b/c merged_lists() has no concept
+# of the LinkedList object. We fill merged_lists with the nodes
+merged_lists.head = recursive_merge(my_list.head, my_list2.head)
+
+# can print list b/c merged_lists is a LinkedList object
+merged_lists.print_list()
+print('\n')
+
