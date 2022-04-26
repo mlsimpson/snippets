@@ -87,6 +87,39 @@ class LinkedList:
             print(tmp.val, end='->')
             tmp = tmp.next
 
+    # only works on sorted lists
+    def iterative_merge(self, list2):
+        # using a dummy node handles empty case
+        # this will be constantly appended to create merged list
+        dummy = ListNode()
+        # track the tail
+        tail = dummy
+
+        curr = self.head
+
+        while curr and list2:
+            if curr.val <= list2.val:
+                tail.next = curr
+                curr = curr.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+
+            # advance the tail
+            tail = tail.next
+
+            # if there's still curr or list2, add them to list
+            if curr:
+                tail.next = curr
+            if list2:
+                tail.next = list2
+
+        # return full list
+        return dummy.next
+
+    # TODO: sort list
+    # def pair program on this
+
 
 # only works on sorted lists
 def recursive_merge(list1, list2):
@@ -114,6 +147,7 @@ def recursive_merge(list1, list2):
     # return full list
     return temp
 
+# Driver code
 
 my_list = LinkedList()
 node1 = ListNode(1)
@@ -166,3 +200,50 @@ merged_lists.head = recursive_merge(my_list.head, my_list2.head)
 merged_lists.print_list()
 print('\n')
 
+# try out iterative merge as method of LinkedList class
+
+my_list3 = LinkedList()
+nodea = ListNode(1)
+nodeb = ListNode(2)
+nodec = ListNode(3)
+
+my_list3.append(nodea)
+my_list3.append(nodeb)
+my_list3.append(nodec)
+
+my_list3.print_list()
+print('\n')
+
+my_list4 = LinkedList()
+noded = ListNode(4)
+nodee = ListNode(5)
+nodef = ListNode(6)
+
+my_list4.append(noded)
+my_list4.append(nodee)
+my_list4.append(nodef)
+
+my_list4.print_list()
+print('\n')
+
+my_list3.iterative_merge(my_list4.head)
+my_list3.print_list()
+print('\n')
+
+# okay, now try sorting list as LinkedList method
+# my_list5 = LinkedList()
+# nodew = ListNode(8)
+# nodex = ListNode(5)
+# nodey = ListNode(3)
+# nodez = ListNode(1)
+#
+# my_list5.append(nodew)
+# my_list5.append(nodex)
+# my_list5.append(nodey)
+# my_list5.append(nodez)
+#
+# my_list5.print_list()
+# print('\n')
+#
+# my_list5.head = my_list5.mergesort(my_list5.head)
+# my_list5.print_list()
