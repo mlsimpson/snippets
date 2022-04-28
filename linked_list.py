@@ -88,6 +88,8 @@ class LinkedList:
             tmp = tmp.next
 
     # only works on sorted lists
+    # this merges an external list with the internal one
+    # this returns a 'new list', and also overwrites the current 'self' list
     def iterative_merge(self, list2):
         # using a dummy node handles empty case
         # this will be constantly appended to create merged list
@@ -118,7 +120,26 @@ class LinkedList:
         return dummy.next
 
     # TODO: sort list
-    # def pair program on this
+    # definitely pair program on this
+    # This only swaps values in nodes, not the links between nodes
+    # this is O(n^2) tho :(
+    def sort(self):
+        if not self.head:
+            return None
+
+        curr = self.head
+        index = None
+
+        while curr:
+            index = curr.next
+
+            while index:
+                if curr.val > index.val:
+                    tmp = curr.val
+                    curr.val = index.val
+                    index.val = tmp
+                index = index.next
+            curr = curr.next
 
 
 # only works on sorted lists
@@ -231,19 +252,21 @@ my_list3.print_list()
 print('\n')
 
 # okay, now try sorting list as LinkedList method
-# my_list5 = LinkedList()
-# nodew = ListNode(8)
-# nodex = ListNode(5)
-# nodey = ListNode(3)
-# nodez = ListNode(1)
-#
-# my_list5.append(nodew)
-# my_list5.append(nodex)
-# my_list5.append(nodey)
-# my_list5.append(nodez)
-#
-# my_list5.print_list()
-# print('\n')
-#
-# my_list5.head = my_list5.mergesort(my_list5.head)
-# my_list5.print_list()
+my_list5 = LinkedList()
+nodew = ListNode(8)
+nodex = ListNode(5)
+nodey = ListNode(3)
+nodez = ListNode(1)
+
+my_list5.append(nodew)
+my_list5.append(nodex)
+my_list5.append(nodey)
+my_list5.append(nodez)
+
+my_list5.print_list()
+print('\n')
+
+my_list5.sort()
+my_list5.print_list()
+print('\n')
+
