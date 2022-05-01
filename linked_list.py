@@ -90,6 +90,7 @@ class LinkedList:
     # only works on sorted lists
     # this merges an external list with the internal one
     # this returns a 'new list', and also overwrites the current 'self' list
+    # this is _in place_
     def iterative_merge(self, list2):
         # using a dummy node handles empty case
         # this will be constantly appended to create merged list
@@ -110,20 +111,45 @@ class LinkedList:
             # advance the tail
             tail = tail.next
 
-            # if there's still curr or list2, add them to list
-            if curr:
-                tail.next = curr
-            if list2:
-                tail.next = list2
+        # if there's still curr or list2, add them to list
+        if curr:
+            tail.next = curr
+        if list2:
+            tail.next = list2
 
         # return full list
+        return dummy.next
+
+    # this takes 2 lists and merges them
+    # at the end, self.head is updated to be new sorted list
+    # basically the same as above, just with an extra externally passed list
+    def sorted_merge(self, head1, head2):
+        dummy = ListNode()
+        tail = dummy
+
+        while head1 and head2:
+            if head1.val <= head2.val:
+                tail.next = head1
+                head1 = head1.next
+            else:
+                tail.next = head2
+                head2 = head2.next
+
+            tail = tail.next
+
+        if head1:
+            tail.next = head1
+        if head2:
+            tail.next = head2
+
+        self.head = dummy.next
         return dummy.next
 
     # TODO: sort list
     # definitely pair program on this
     # This only swaps values in nodes, not the links between nodes
     # this is O(n^2) tho :(
-    def sort(self):
+    def bad_sort(self):
         if not self.head:
             return None
 
@@ -140,6 +166,49 @@ class LinkedList:
                     index.val = tmp
                 index = index.next
             curr = curr.next
+
+    # utility function to get middle of linked list
+    # uses 'slow'/'fast' method:
+    # 'slow' pointer moves at one element at a time
+    # 'fast' pointer moves at two elements at a time
+    # when 'fast' is at end, 'slow' is halfway
+    def get_middle(self, head):
+        # In case of empty list
+        if not head:
+            return head
+
+        slow = head
+        fast = head
+
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next
+
+        return slow
+
+    # divide and conquer, baby!
+    # uses existing "sorted_merge()" to perform merge after dividing
+    def merge_sort(self, head):
+        # base case if head is none, or only 1 element in list
+        if not head or not head.next:
+            return head
+
+        # get the middle element of the list
+        middle = self.get_middle(head)
+        # divide on element next to middle
+        next_middle = middle.next
+
+        # set middle.next to None (end of left list)
+        middle.next = None
+
+        # divide...
+        left = self.merge_sort(head)
+        right = self.merge_sort(next_middle)
+
+        # ... and conquer
+        sorted_list = self.sorted_merge(left, right)
+
+        return sorted_list
 
 
 # only works on sorted lists
@@ -247,7 +316,8 @@ my_list4.append(nodef)
 my_list4.print_list()
 print('\n')
 
-my_list3.iterative_merge(my_list4.head)
+# my_list3.iterative_merge(my_list4.head)
+my_list3.sorted_merge(my_list3.head, my_list4.head)
 my_list3.print_list()
 print('\n')
 
@@ -266,7 +336,8 @@ my_list5.append(nodez)
 my_list5.print_list()
 print('\n')
 
-my_list5.sort()
+# my_list5.bad_sort()
+my_list5.merge_sort(my_list5.head)
 my_list5.print_list()
 print('\n')
 
