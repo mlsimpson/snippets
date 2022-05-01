@@ -212,6 +212,7 @@ class LinkedList:
 
 
 # only works on sorted lists
+# takes stack space proportional to lenght of both lists
 def recursive_merge(list1, list2):
     # Create a temp node
     temp = None
