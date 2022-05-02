@@ -3,6 +3,7 @@ class ListNode:
         self.val = val
         self.next = next
 
+
 class LinkedList:
     def __init__(self):
         self.head = None
@@ -158,8 +159,6 @@ class LinkedList:
         self.head = dummy.next
         return dummy.next
 
-    # TODO: sort list
-    # definitely pair program on this
     # This only swaps values in nodes, not the links between nodes
     # this is O(n^2) tho :(
     def bad_sort(self):
