@@ -35,7 +35,6 @@ class LinkedList:
         curr = self.head
         # Handles single node list
         if curr.next == None:
-            tmp = curr
             self.head = None
             return curr
 
