@@ -14,26 +14,37 @@ class LinkedList:
 
     # inserts at end
     def append(self, node):
+        # In case of empty list
         if not self.head:
             self.head = node
             return
+
         tmp = self.head
         while tmp.next:
             tmp = tmp.next
+
         tmp.next = node
 
     # removes and returns last node
     def pop(self):
+        # Handles empty list
+        if not self.head:
+            return None
+
         curr = self.head
+        # Handles single node list
         if curr.next == None:
             tmp = curr
             self.head = None
             return curr
+
         while curr.next:
+            # Check if next node is end of list
             if curr.next.next == None:
                 tmp = curr.next
                 curr.next = None
                 return tmp
+            # Keep iterating if not
             else:
                 curr = curr.next
 
@@ -66,17 +77,19 @@ class LinkedList:
         if not prev_left:
             self.head = curr_right
         # if not, adjust prev_left.next pointer
+        # aka make prev_left point to the 'right' node
         else:
             prev_left.next = curr_right
 
         # check if val2 is head
         if not prev_right:
             self.head = curr_left
-        # if not, adjust prev_left.next pointer
+        # if not, adjust prev_right.next pointer
+        # aka make prev_right poitn to the 'left' node
         else:
             prev_right.next = curr_left
 
-        # fix pointers
+        # fix swapped 'next' pointers
         tmp = curr_left.next
         curr_left.next = curr_right.next
         curr_right.next = tmp
