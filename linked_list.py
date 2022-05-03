@@ -57,9 +57,11 @@ class LinkedList:
                 # handles head of list
                 if not prev:
                     self.head = curr.next
+                    curr = None
                     return
                 prev.next = curr.next
-                curr.next = None
+                curr = None
+                return
 
             prev = curr
             curr = curr.next
