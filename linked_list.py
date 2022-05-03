@@ -26,6 +26,44 @@ class LinkedList:
 
         tmp.next = node
 
+    # inserts at arbitrary position
+    # required: exact value to be placed after
+    def insert(self, node, after_value):
+        if not self.head:
+            return None
+
+        curr = self.head
+
+        while curr:
+            if curr.val == after_value:
+                node.next = curr.next
+                curr.next = node
+            curr = curr.next
+
+        if not curr:
+            return None
+
+    # deletes node
+    # required: exact node value to be deleted
+    def delete(self, node_val):
+        if not self.head:
+            return None
+
+        prev = None
+        curr = self.head
+
+        while curr:
+            if curr.val == node_val:
+                # handles head of list
+                if not prev:
+                    self.head = curr.next
+                    return
+                prev.next = curr.next
+                curr.next = None
+
+            prev = curr
+            curr = curr.next
+
     # removes and returns last node
     def pop(self):
         # Handles empty list
@@ -353,3 +391,21 @@ my_list5.merge_sort(my_list5.head)
 my_list5.print_list()
 print('\n')
 
+node_insert = ListNode(6)
+my_list5.insert(node_insert, 5)
+
+node_insert = ListNode(9)
+my_list5.insert(node_insert, 8)
+
+node_insert = ListNode(15)
+my_list5.insert(node_insert, 2)
+
+my_list5.print_list()
+print('\n')
+
+my_list5.delete(5)
+my_list5.delete(1)
+my_list5.delete(2)
+my_list5.delete(9)
+my_list5.print_list()
+print('\n')
