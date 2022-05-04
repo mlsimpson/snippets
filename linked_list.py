@@ -261,6 +261,38 @@ class LinkedList:
 
         return sorted_list
 
+    # iterative reverse list
+    def iterative_reverse(self):
+        # this also handles empty and single node case
+        curr = self.head
+        prev = None
+
+        while curr:
+            tmp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = tmp
+
+        self.head = prev
+        return self.head
+
+    # recursive reverse list
+    # this _must_ include the 'head' parameter for recursion
+    def recursive_reverse(self, head):
+        # handle empty list, and provide base case for recursion
+        # aka the single node (at the end)
+        if not head or not head.next:
+            return head
+
+        # at top of call stack (aka base case), we want to return
+        # the last node as the new head
+        rev_list = self.recursive_reverse(head.next)
+        # Reverse the pointers
+        head.next.next = head
+        head.next = None
+
+        self.head = rev_list
+        return self.head
 
 # only works on sorted lists
 # takes stack space proportional to lenght of both lists
@@ -412,3 +444,10 @@ my_list5.delete(9)
 my_list5.print_list()
 print('\n')
 
+my_list5.iterative_reverse()
+my_list5.print_list()
+print('\n')
+
+my_list5.recursive_reverse(my_list5.head)
+my_list5.print_list()
+print('\n')
