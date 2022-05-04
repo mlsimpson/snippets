@@ -125,7 +125,7 @@ class LinkedList:
         if not prev_right:
             self.head = curr_left
         # if not, adjust prev_right.next pointer
-        # aka make prev_right poitn to the 'left' node
+        # aka make prev_right point to the 'left' node
         else:
             prev_right.next = curr_left
 
