@@ -261,7 +261,7 @@ class LinkedList:
 
         return sorted_list
 
-    # iterative reverse list
+    # iterative reverse list in place
     def iterative_reverse(self):
         # this also handles empty and single node case
         curr = self.head
