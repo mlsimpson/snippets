@@ -198,6 +198,24 @@ class LinkedList:
         self.head = dummy.next
         return dummy.next
 
+    # another example of sorted_merge recursive
+    def sorted_merge2(self, head1, head2):
+        # Base cases for recursive calls
+        # aka smallest input to pass in
+        if not head1:
+            return head2
+        if not head2:
+            return head1
+
+        # unit of work to do
+        # aka recursion
+        if head1.val <= head2.val:
+            head1.next = self.sorted_merge2(head1.next, head2)
+            return head1
+        else:
+            head2.next = self.sorted_merge2(head1, head2.next)
+            return head2
+
     # This only swaps values in nodes, not the links between nodes
     # this is O(n^2) tho :(
     def bad_sort(self):
@@ -451,3 +469,8 @@ print('\n')
 my_list5.recursive_reverse(my_list5.head)
 my_list5.print_list()
 print('\n')
+
+my_list5.sorted_merge2(my_list5.head, my_list4.head)
+my_list5.print_list()
+print('\n')
+
