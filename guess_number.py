@@ -52,9 +52,6 @@ answered = False
 while not answered:
     if n.less_than(curr_guess):
         # perform binary search
-        # print(prev_guess)
-        # print(curr_guess)
-
         top = curr_guess
         bottom = prev_guess
 
@@ -62,16 +59,13 @@ while not answered:
             mid = (top + bottom) // 2
             answer = mid
 
-            # print(bottom)
-            # print(top)
-            # input("Press Enter to continue...")
             if n.less_than(mid):
                 top = mid
             else:
                 bottom = mid
         answered = True
     else:
-        # increase guess by curr_guess^2
+        # increase guess by curr_guess * 2
         prev_guess = curr_guess
         curr_guess = curr_guess * 2
 
